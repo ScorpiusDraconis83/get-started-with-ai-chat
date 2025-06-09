@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 param tags object = {}
 @description('The custom subdomain name used to access the API. Defaults to the value of the name parameter.')
 param customSubDomainName string = aiServiceName
-param disableLocalAuth bool = false
+param disableLocalAuth bool = true
 param deployments array = []
 param appInsightsId string
 param appInsightConnectionString string

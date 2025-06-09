@@ -1,33 +1,40 @@
 #!/bin/bash
 
-# Prompt for username with validation
-while true; do
-  read -rp "👤 Create a new username for the web app (no spaces, at least 1 character): " username
+templateValidationMode="${TEMPLATE_VALIDATION_MODE}"
 
-  if [[ -z "$username" || "$username" =~ [[:space:]] ]]; then
-    echo "❌ Username cannot be empty or contain spaces." >&2
-  else
-    break
-  fi
-done
+if [[ "$templateValidationMode" == true ]]; then
+  username="user"
+  password="pwd"
+else
+  # Prompt for username with validation
+  while true; do
+    read -rp "👤 Create a new username for the web app (no spaces, at least 1 character): " username
 
-# Prompt for password with validation
-while true; do
-  read -rsp "🔑 Create a new password for the web app (no spaces, at least 1 character): " password
-  echo
-  read -rsp  "🔑 Confirm the new password: " confirmPassword
-  echo
+    if [[ -z "$username" || "$username" =~ [[:space:]] ]]; then
+      echo "❌ Username cannot be empty or contain spaces." >&2
+    else
+      break
+    fi
+  done
 
-  if [[ -z "$password" ]]; then
-    echo "❌ Password cannot be empty." >&2
-  elif [[ "$password" != "$confirmPassword" ]]; then
-    echo "❌ Passwords do not match." >&2
-  elif [[ "$password" =~ [[:space:]] ]]; then
-    echo "❌ Password cannot contain spaces." >&2
-  else
-    break
-  fi
-done
+  # Prompt for password with validation
+  while true; do
+    read -rsp "🔑 Create a new password for the web app (no spaces, at least 1 character): " password
+    echo
+    read -rsp "🔑 Confirm the new password: " confirmPassword
+    echo
+
+    if [[ -z "$password" ]]; then
+      echo "❌ Password cannot be empty." >&2
+    elif [[ "$password" != "$confirmPassword" ]]; then
+      echo "❌ Passwords do not match." >&2
+    elif [[ "$password" =~ [[:space:]] ]]; then
+      echo "❌ Password cannot contain spaces." >&2
+    else
+      break
+    fi
+  done
+fi
 
 # Get resource group and container app name from azd
 resourceGroupName=$(azd env get-value AZURE_RESOURCE_GROUP)

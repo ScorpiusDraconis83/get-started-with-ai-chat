@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.11
+FROM python:3.11.11-slim-bookworm
 
 WORKDIR /code
 

@@ -103,6 +103,9 @@
     },
     "azureTracingGenAIContentRecordingEnabled": {
       "value": "${AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED=false}"
-    }
+    },
+    "templateValidationMode": {
+      "value": "${TEMPLATE_VALIDATION_MODE=false}"
+    }    
   }
 }

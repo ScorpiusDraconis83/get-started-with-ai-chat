@@ -19,7 +19,8 @@ param searchServiceName string = ''
 @description('The Application Insights connection name.')
 param appInsightConnectionName string
 param tags object = {}
-param userPrincipalId string
+param runnerPrincipalId string
+param runnerPrincipalType string
 
 module storageAccount '../storage/storage-account.bicep' = {
   name: 'storageAccount'
@@ -108,8 +109,8 @@ module backendStorageBlobDataContributorRoleAssignment  '../../core/security/rol
 module userStorageBlobDataContributorRoleAssignment  '../../core/security/role.bicep' = {
   name: 'user-role-storage-blob-data-contributor'
   params: {
-    principalType: 'User'
-    principalId: userPrincipalId
+    principalType: runnerPrincipalType
+    principalId: runnerPrincipalId
     roleDefinitionId: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Storage Blob Data Contributor
   }
 }
